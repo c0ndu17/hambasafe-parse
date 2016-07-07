@@ -6,8 +6,10 @@ module.exports = function(app, upload) {
   console.log('Loading USERS endpoints');
   const USERS_ROOT = '/v1/Users';
 
-  app.route(USERS_ROOT + '/create-user').post(function(req, res){
+  app.route(USERS_ROOT + '/create-user')
+  .post(function(req, res){
       res.json({
+        'success' : true
       });
     })
 

@@ -5,7 +5,8 @@ module.exports = function(app) {
   console.log('Loading EVENTS endpoints');
   const EVENTS_ROOT = '/v1/Events';
 
-  app.route(EVENTS_ROOT + '/create-event').post(function(req, res){
+  app.route(EVENTS_ROOT + '/create-event')
+  .post(function(req, res){
       res.json({
       });
     })
