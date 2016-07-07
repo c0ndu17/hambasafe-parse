@@ -2,14 +2,14 @@ var bcrypt    = require('bcrypt-nodejs');
 var jwt       = require('jwt-simple');
 var _         = require('lodash');
 
-module.exports = function(app, r, io, upload) {
-  const attendance     = require('./attendance')(r)
-  const authentication = require('./authentication')(r)
-  const events         = require('./events')(r)
-  const eventType      = require('./eventType')(r)
-  const invitations    = require('./invitations')(r)
-  const location       = require('./location')(r)
-  const users          = require('./users')(r, upload)
+module.exports = function(app, io, upload) {
+  const attendance     = require('./attendance')(app)
+  const authentication = require('./authentication')(app)
+  const events         = require('./events')(app)
+  const eventType      = require('./eventType')(app)
+  const invitations    = require('./invitations')(app)
+  const location       = require('./location')(app)
+  const users          = require('./users')(app, upload)
 
   const endPoints = {
     'ATTENDANCE'    :  attendance.endpointHandler,

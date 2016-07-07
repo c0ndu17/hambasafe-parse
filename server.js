@@ -80,18 +80,19 @@ console.log(routes);
 
 app.use('/public', express.static(join(__dirname, 'public')));
 app.use("/", function(req, res) {
+  console.log('sending index')
   res.sendFile(__dirname + '/index.html')
 })
 var server = https.createServer(options, app)
 const io = socketIO(server);
-var r = null;
+// var r = null;
 
 // require(
 //   './startUp.js'
 // )(r);
 require(
   join(routes,'index.js')
-)(app, r, io, upload);
+)(app, io, upload);
 
 /**
  * Expose

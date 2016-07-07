@@ -1,8 +1,30 @@
 var bcrypt    = require('bcrypt-nodejs');
 var jwt       = require('jwt-simple');
 var _         = require('lodash');
-module.exports = function(r) {
+module.exports = function(app) {
   console.log('Loading EVENTS endpoints');
+  const EVENTS_ROOT = '/v1/Events';
+
+  app.route(EVENTS_ROOT + '/create-event').post(function(req, res){
+      res.json({
+      });
+    })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   createEvent = (req, error) => {
      

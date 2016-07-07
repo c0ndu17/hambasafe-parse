@@ -2,8 +2,48 @@ var bcrypt    = require('bcrypt-nodejs');
 var jwt       = require('jwt-simple');
 var _         = require('lodash');
 
-module.exports = function(r, upload) {
+module.exports = function(app, upload) {
   console.log('Loading USERS endpoints');
+  const USERS_ROOT = '/v1/Users';
+
+  app.route(USERS_ROOT + '/create-user').post(function(req, res){
+      res.json({
+      });
+    })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   var userModel = {
     'avatar'      : 'string',
     'firstName'   : 'string',
@@ -62,21 +102,6 @@ module.exports = function(r, upload) {
     }
     req.data['verified'] = 0;
     req.data = _.omit(req.data, 'confirmEmailAddress');
-    // r.table('User').insert(req.data).run((err, result)=> {
-    //   console.log(err);
-    //   console.log(result);
-    //   resData = 'welcome';
-    //   respHandler(null, 'USERS', resData);
-
-    //   r.table('AuthData').insert({
-    //     'email': req.data.email
-    //   }).run((err, result) => {
-    //     console.log(err);
-    //     console.log(result);
-    //     resData = 'welcome';
-    //     respHandler(null, 'USERS', resData);
-    //   })
-    // })
   }
   updateUser = (req, errorHandler, respHandler) => {
     req.data = _.omit(req.data, 'verified');
@@ -94,26 +119,10 @@ module.exports = function(r, upload) {
     if(req && req.data) {
       // TODO: Uncomment -> Only query for verified fields;
       // req.data.verified = 1;
-      // r.table('User').filter(req.data).run((err, result) => {
-      //   var resData = _.map(result, function(item){
-      //     console.log(item);
-      //     return _.omit(item, [
-      //       'email',
-      //       'mobileNumber'
-      //     ])
-      //   });
-      //   // var resData = _.reduce(result, function(result) {
-      //   // })
-      //   console.log(resData);
-      //   respHandler(null, 'USERS', resData);
-      // })
 
     }
   }
   user = (req, errorHandler, respHandler) =>{
-    // r.table('User').insert(req.data).run((err, result)=> {
-
-    // })
   }
   var endPoints = {
     'createUser': createUser,
