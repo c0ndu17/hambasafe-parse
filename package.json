@@ -1,0 +1,40 @@
+{
+  "name": "empathio",
+  "version": "0.0.0",
+  "description": "empathic streaming en masse",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://www.bitbucket.org/c0ndu17/empathio"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://www.bitbucket.org/c0ndu17/empathio"
+  },
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.14.2",
+    "compression": "^1.6.1",
+    "cookie-parser": "^1.4.1",
+    "cors": "^2.7.1",
+    "dotenv": "^2.0.0",
+    "jwt-simple": "^0.4.1",
+    "lodash": "^4.0.0",
+    "mongoose": "^4.5.2",
+    "morgan": "^1.6.1",
+    "multer": "^1.1.0",
+    "node-uuid": "^1.4.7",
+    "normalizr": "^2.0.0",
+    "passport": "^0.3.2",
+    "rethinkdb": "^2.2.1",
+    "rethinkdbdash": "^2.3.12",
+    "socket.io": "^1.4.8",
+    "socket.io-client": "^1.4.8"
+  },
+  "devDependencies": {
+    "express": "^4.13.3",
+    "express-session": "^1.13.0"
+  }
+}
