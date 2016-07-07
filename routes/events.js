@@ -8,6 +8,7 @@ module.exports = function(app) {
   app.route(EVENTS_ROOT + '/create-event')
   .post(function(req, res){
       res.json({
+        'success' : true
       });
     })
 

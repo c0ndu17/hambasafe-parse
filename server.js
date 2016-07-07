@@ -75,24 +75,22 @@ const upload                = new MulterImpl({}).init();
 
       
 
-console.log(routes);
-
+var server = https.createServer(options, app)
+const io = socketIO(server);
+//Require api routes
+require(
+  join(routes,'index.js')
+)(app, io, upload);
 
 app.use('/public', express.static(join(__dirname, 'public')));
 app.use("/", function(req, res) {
   console.log('sending index')
   res.sendFile(__dirname + '/index.html')
 })
-var server = https.createServer(options, app)
-const io = socketIO(server);
-// var r = null;
 
 // require(
 //   './startUp.js'
 // )(r);
-require(
-  join(routes,'index.js')
-)(app, io, upload);
 
 /**
  * Expose
