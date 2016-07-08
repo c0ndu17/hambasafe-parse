@@ -1,0 +1,18 @@
+{
+  "apps": [{
+		"serverURL": "https://163.172.144.224:443/parse",
+		"appId": "test1234",
+		"masterKey": "test1234",
+		"appName": "hambaSafe"
+  }],
+  "users": [
+    {
+      "user": "user",
+      "pass": "pass"
+    },
+    {
+      "user": "admin",
+      "pass": "admin"
+    }
+  ]
+}

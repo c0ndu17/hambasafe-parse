@@ -19,22 +19,18 @@ const passport                = require('passport');
 const compression             = require('compression');
 const socketIO                = require('socket.io');
 const https                   = require('https');
+const ParseServer             = require('parse-server').ParseServer;
 const bodyParser              = require('body-parser');
 const config                  = join(__dirname, 'config/');
 const routes                  = join(__dirname, 'routes/');
 
 
-const MulterImpl            = require(config+'multerImpl');
+const MulterImpl              = require(config+'multerImpl');
 
 
 //DB CONNECTION
-// var r = require('rethinkdbdash')({
-//   port  : '28015',
-//   host  : 'localhost',
-//   db    : 'hambasafe',
-// })();
 
-const port = process.env.PORT || 3000;
+const port                    = process.env.PORT || 3000;
 
 //XHR SUPPORT
 var cors                  = require('cors');
@@ -77,11 +73,26 @@ const upload                = new MulterImpl({}).init();
 
 var server = https.createServer(options, app)
 const io = socketIO(server);
+var parse = new ParseServer({
+  databaseURI: 'mongodb://localhost:27017/dev', // Connection string for your MongoDB database
+  cloud: process.env.CLOUD_CODE_MAIN || __dirname + '/cloud/main.js',
+  appId: 'test1234',
+  appName: 'hambaSafe',
+  masterKey: 'test1234', // Keep this key secret!
+  fileKey: 'file_',
+  serverURL: 'https://0.0.0.0:443/parse' // Don't forget to change to https if needed
+});
+
+
 //Require api routes
 require(
   join(routes,'index.js')
 )(app, io, upload);
 
+
+// Serve the Parse API on the /parse URL prefix
+var mountPath = process.env.PARSE_MOUNT || '/parse';
+app.use(mountPath, parse);
 app.use('/public', express.static(join(__dirname, 'public')));
 app.use("/", function(req, res) {
   console.log('sending index')
