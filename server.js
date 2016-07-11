@@ -85,19 +85,19 @@ var parse = new ParseServer({
 
 
 //Require api routes
-require(
-  join(routes,'index.js')
-)(app, io, upload);
+// require(
+//   join(routes,'index.js')
+// )(app, io, upload);
 
 
 // Serve the Parse API on the /parse URL prefix
 var mountPath = process.env.PARSE_MOUNT || '/parse';
 app.use(mountPath, parse);
 app.use('/public', express.static(join(__dirname, 'public')));
-app.use("/", function(req, res) {
-  console.log('sending index')
-  res.sendFile(__dirname + '/index.html')
-})
+// app.use("/", function(req, res) {
+//   console.log('sending index')
+//   res.sendFile(__dirname + '/index.html')
+// })
 
 // require(
 //   './startUp.js'
