@@ -94,7 +94,7 @@ Parse.Cloud.beforeSave('Activity', function(req, res){
   // else {
   //   req.object.set('endLocation' , new Parse.GeoPoint(endLocation)) 
   // }
-  if(!intensity || !(intensity === 'NOVICE' || intensity === 'INTERMEDIATE' || intensity === 'HARDCORE')) {
+  if(!intensity || !(intensity === 'NOVICE' || intensity === 'INTERMEDIATE' || intensity === 'INTENSE')) {
     res.error('Invalid intensity');
     return;
   }

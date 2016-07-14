@@ -47,8 +47,9 @@ var logger                = require('morgan');
 var app = new (express)();
 
 var options = {
-  key   :   fs.readFileSync(config + 'certificates/key.pem'),
-  cert  :   fs.readFileSync(config + 'certificates/cert.pem'),
+  key   :   fs.readFileSync('/etc/letsencrypt/live/mainstream.ninja/privkey.pem'),
+  cert  :   fs.readFileSync('/etc/letsencrypt/live/mainstream.ninja/fullchain.pem'),
+  ca  :   fs.readFileSync('/etc/letsencrypt/live/mainstream.ninja/chain.pem'),
 };
 
 //
