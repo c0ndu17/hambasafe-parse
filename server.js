@@ -81,7 +81,7 @@ var parse = new ParseServer({
   appName: 'hambaSafe',
   masterKey: 'test1234', // Keep this key secret!
   fileKey: 'file_',
-  serverURL: 'https://0.0.0.0:443/parse' // Don't forget to change to https if needed
+  serverURL: 'https://mainstream.ninja/parse' // Don't forget to change to https if needed
 });
 
 
