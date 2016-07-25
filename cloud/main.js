@@ -41,6 +41,9 @@ Parse.Cloud.beforeSave(Parse.User, function(req, res){
   //   res.error('please enter your last name');
   //   return;
   // }
+  req.object.set('firstName', req.object.get('firstName').toLowerCase());
+  req.object.set('lastName', req.object.get('lastName').toLowerCase());
+  req.object.set('fullname', req.object.get('firstName') + " " + req.object.get('lastName'))
   res.success();
 
 })
