@@ -7,26 +7,26 @@ Parse.Cloud.define('get-user', function(req, res) {
 Parse.Cloud.beforeSave(Parse.User, function(req, res){
   console.log('Before Save');
   var user = req.user;
-  if(req.object.get('objectId') !== user.get('objectId')){
-    res.error('You cannot edit another user, the attempt has been logged');
-    return;
-  }
-  if(req.object.get('trust') !== user.get('trust')) {
-    res.error(); 
-    return; 
-  }
-  if(req.object.get('rating') !== user.get('rating')) {
-    res.error(); 
-    return; 
-  }
-  if(req.object.get('verified') !== user.get('verified')) {
-    res.error(); 
-    return; 
-  }
-  if(req.object.get('emailVerified') !== user.get('emailVerified')) {
-    res.error();
-    return; 
-  }
+  // if(req.object.get('objectId') !== user.get('objectId')){
+  //   res.error('You cannot edit another user, the attempt has been logged');
+  //   return;
+  // }
+  // if(req.object.get('trust') !== user.get('trust')) {
+  //   res.error(); 
+  //   return; 
+  // }
+  // if(req.object.get('rating') !== user.get('rating')) {
+  //   res.error(); 
+  //   return; 
+  // }
+  // if(req.object.get('verified') !== user.get('verified')) {
+  //   res.error(); 
+  //   return; 
+  // }
+  // if(req.object.get('emailVerified') !== user.get('emailVerified')) {
+  //   res.error();
+  //   return; 
+  // }
   // if(!req.object){
   //   res.error('Invalid Activity Schema');
   // }
@@ -41,9 +41,15 @@ Parse.Cloud.beforeSave(Parse.User, function(req, res){
   //   res.error('please enter your last name');
   //   return;
   // }
-  req.object.set('firstName', req.object.get('firstName').toLowerCase());
-  req.object.set('lastName', req.object.get('lastName').toLowerCase());
-  req.object.set('fullname', req.object.get('firstName') + " " + req.object.get('lastName'))
+  if(!!req.object.get('firstName')){
+    req.object.set('firstName', req.object.get('firstName').toLowerCase());
+  }
+  if(!!req.object.get('lastName')){
+    req.object.set('lastName', req.object.get('lastName').toLowerCase());
+  }
+  if(!!req.object.get('firstName') && !!req.object.get('lastName')){
+    req.object.set('fullname', req.object.get('firstName') + " " + req.object.get('lastName'))
+  }
   res.success();
 
 })

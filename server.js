@@ -81,7 +81,12 @@ var parse = new ParseServer({
   appName: 'hambaSafe',
   masterKey: 'test1234', // Keep this key secret!
   fileKey: 'file_',
-  serverURL: 'https://mainstream.ninja/parse' // Don't forget to change to https if needed
+  serverURL: 'https://mainstream.ninja/parse', // Don't forget to change to https if needed
+  liveQuery : {
+    classNames: [
+      'Invite'
+    ]
+  }
 });
 
 
@@ -119,3 +124,4 @@ server.listen(port, function(error) {
     console.info("==>  Listening on port %s. Open up https://localhost:%s/ in your browser.", port, port)
   }
 });
+var parseLiveQueryServer = ParseServer.createLiveQueryServer(server);
