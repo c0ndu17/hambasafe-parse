@@ -109,7 +109,7 @@ Parse.Cloud.beforeSave('Activity', function(req, res){
     res.error('Invalid eventType');
     return;
   }
-  if(!distance || isNaN(distance) || distance < 0 || distance > 150) {
+  if(!distance || isNaN(distance) || distance < 0 || distance > 300) {
     res.error('Invalid distance');
     return;
   }
@@ -157,19 +157,19 @@ Parse.Cloud.beforeSave('Attendance', function(req, res){
   }
   attendanceQuery.equalTo('activityReference', req.object.get('activityReference'));
   attendanceQuery.equalTo('userReference', req.object.get('userReference'));
-  attendanceQuery.find({
-    success: function(objects) {
-      if(objects.length){
-        res.error('Already joined');
-        return;
-      }
+  // attendanceQuery.find({
+  //   success: function(objects) {
+  //     if(objects.length){
+  //       res.error('Already joined');
+  //       return;
+  //     }
       res.success();
-    },
-    error: function(err) {
-      console.log(err);
-      res.success();
-    },
-  })
+    // },
+    // error: function(err) {
+    //   console.log(err);
+    //   res.success();
+    // },
+  // })
 })
 Parse.Cloud.beforeSave('Location', function(req, res){
   if(!req.object) {
@@ -294,7 +294,58 @@ Parse.Cloud.beforeSave('Location', function(req, res){
 })
 
 
-Parse.Cloud.beforeSave("Rating", function(req, res) {
+Parse.Cloud.beforeSave("Friend", function(req, res) {
+  var query = new Parse.Query('Friend');
+  console.log(req.object.toJSON());
+  console.log(req.object);
+  if(!!req.object['id']){
+    // query.get(req.object.get('objectId'))
+    // .then(function(result) {
+      if(req.object.get('userPtr').get('objectId') === req.user.get('objectId')){
+        req.object.set('confirmed', req.object.get('confirmed'))
+      }
+      res.success();
+    // }, function(err) {
+    //   console.error(err);
+    //   res.error();
+    // })
+  } else {
+    query.equalTo('userPtr', req.object.get('userPtr'));
+    query.equalTo('friendPtr', req.object.get('friendPtr'));
+
+    var query2 = new Parse.Query('Friend');
+    query2.equalTo('userPtr', req.object.get('friendPtr'));
+    query2.equalTo('friendPtr', req.object.get('userPtr'));
+
+    var switchRoleQuery = Parse.Query.or(query, query2);
+
+    console.log('switchRoleQuery')
+    switchRoleQuery.find()
+    .then(function(result){
+      if(!result.length){
+        req.object.set('confirmed', false);
+        res.success();
+      } else {
+        console.error(result);
+        res.error();
+      }
+    }, function(err){
+      console.log('err');
+      console.error(err);
+      res.error();
+    })
+  }
+});
+Parse.Cloud.beforeSave("UserRating", function(req, res) {
+  if (req.object.get("stars") < 1) {
+    res.error("you cannot give less than one star");
+  } else if (req.object.get("stars") > 5) {
+    res.error("you cannot give more than five stars");
+  } else {
+    res.success();
+  }
+});
+Parse.Cloud.beforeSave("ActivityRating", function(req, res) {
   if (req.object.get("stars") < 1) {
     res.error("you cannot give less than one star");
   } else if (req.object.get("stars") > 5) {

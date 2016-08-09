@@ -84,7 +84,9 @@ var parse = new ParseServer({
   serverURL: 'https://mainstream.ninja/parse', // Don't forget to change to https if needed
   liveQuery : {
     classNames: [
-      'Invite'
+      'Invite',
+      'Attendance',
+      'Friend',
     ]
   }
 });
