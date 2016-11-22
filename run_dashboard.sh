@@ -1,1 +1,1 @@
-parse-dashboard --allowInsecureHTTP --config parse-dashboard-config.json &
+parse-dashboard --allowInsecureHTTP --config /usr/src/app/parse-dashboard-config.json &

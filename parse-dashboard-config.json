@@ -1,6 +1,6 @@
 {
   "apps": [{
-		"serverURL": "https://mainstream.ninja/parse",
+		"serverURL": "http://localhost/parse",
 		"appId": "test1234",
 		"masterKey": "test1234",
 		"appName": "hambaSafe"
