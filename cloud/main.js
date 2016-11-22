@@ -50,6 +50,13 @@ Parse.Cloud.beforeSave(Parse.User, function(req, res){
   if(!!req.object.get('firstName') && !!req.object.get('lastName')){
     req.object.set('fullname', req.object.get('firstName') + " " + req.object.get('lastName'))
   }
+  
+  if(req.object.trust == undefined) {
+    req.object.trust = 0;
+  }
+  if(req.object.rating == 0) {
+    req.object.rating = 0;
+  }
   res.success();
 
 })
@@ -149,6 +156,39 @@ Parse.Cloud.beforeSave('Activity', function(req, res){
     // }
   // })
 })
+Parse.Cloud.afterSave("Activity", function(request, response) {
+	var AttendanceClass = Parse.Object.extend("Attendance");
+	var attendance = new AttendanceClass();
+	var InviteClass = Parse.Object.extend("Invite");
+	var invite = new InviteClass();
+	var user = request.user;
+
+	attendance.set('userReference', user);
+	attendance.set('activityReference', request.object);
+
+	attendance.save(null, {
+		success: function(attendanceObject) {
+			var query = new Parse.Query("Invite");
+			query.equalTo('activityPtr', request.object);
+			query.equalTo('inviteePtr', request.object);
+			query.find({
+				success: function(invitesObj) {
+					for(var i = 0; i < invitesObj.length; i++){
+						invitesObj[i].destroy({});
+					}
+				},
+				error: function(err){
+				
+				}
+			})
+			response.success(request.object.toJSON());
+		},
+		error: function(err){
+			response.error(err);
+		}
+	})
+});
+
 Parse.Cloud.beforeSave('Attendance', function(req, res){
   var attendanceQuery = new Parse.Query('Attendance');
   if(!req.object.get('userReference') && req.object.get('userReference') !== req.user.get('objectId')) {

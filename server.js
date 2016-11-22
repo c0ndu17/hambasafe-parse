@@ -82,11 +82,29 @@ var parse = new ParseServer({
   masterKey: 'test1234', // Keep this key secret!
   fileKey: 'file_',
   serverURL: 'https://mainstream.ninja/parse', // Don't forget to change to https if needed
+	emailVerifyTokenValidityDuration: 2 * 60 * 60, // in seconds (2 hours = 7200 seconds)
+	preventLoginWithUnverifiedEmail: false, // defaults to false
+  emailAdapter: {
+    module: 'parse-server-simple-mailgun-adapter',
+    options: {
+      // The address that your emails come from
+      fromAddress: 'no-reply@mainstream.ninja',
+      // Your domain from mailgun.com
+      domain: 'mg.mainstream.ninja',
+      // Your API key from mailgun.com
+      apiKey: 'key-6291bd236f3b790a5259c1a0f2e74e9b',
+    }
+  },
+  accountLockout: {
+    duration: 5, // duration policy setting determines the number of minutes that a locked-out account remains locked out before automatically becoming unlocked. Set it to a value greater than 0 and less than 100000.
+    threshold: 3, // threshold policy setting determines the number of failed sign-in attempts that will cause a user account to be locked. Set it to an integer value greater than 0 and less than 1000.
+  },
   liveQuery : {
     classNames: [
       'Invite',
       'Attendance',
       'Friend',
+      'User'
     ]
   }
 });
