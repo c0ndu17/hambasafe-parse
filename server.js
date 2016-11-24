@@ -91,13 +91,13 @@ const upload                = new MulterImpl({}).init();
 var server = http.createServer(app);
 const io = socketIO(server);
 var parse = new ParseServer({
-  databaseURI: databaseUri || 'mongodb://172.17.0.2:27017/dev', // Connection string for your MongoDB database
+  databaseURI: databaseUri || 'mongodb://mongo:27017/dev', // Connection string for your MongoDB database
   cloud: process.env.CLOUD_CODE_MAIN || __dirname + '/cloud/main.js',
   appId: 'test1234',
   appName: 'hambaSafe',
   masterKey: 'test1234', // Keep this key secret!
   fileKey: 'file_',
-  serverURL: 'http://localhost/parse', // Don't forget to change to https if needed
+  serverURL: 'http://mongo/parse', // Don't forget to change to https if needed
 	emailVerifyTokenValidityDuration: 2 * 60 * 60, // in seconds (2 hours = 7200 seconds)
 	preventLoginWithUnverifiedEmail: false, // defaults to false
   // emailAdapter: {
@@ -136,10 +136,10 @@ var parse = new ParseServer({
 var mountPath = process.env.PARSE_MOUNT || '/parse';
 app.use(mountPath, parse);
 app.use('/public', express.static(join(__dirname, 'public')));
-// app.use("/", function(req, res) {
-//   console.log('sending index')
-//   res.sendFile(__dirname + '/index.html')
-// })
+app.use("/", function(req, res) {
+  console.log('sending index')
+  res.sendFile(__dirname + '/index.html')
+})
 
 // require(
 //   './startUp.js'

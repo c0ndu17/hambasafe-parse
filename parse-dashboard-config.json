@@ -1,6 +1,6 @@
 {
   "apps": [{
-		"serverURL": "http://localhost/parse",
+		"serverURL": "http://web/parse",
 		"appId": "test1234",
 		"masterKey": "test1234",
 		"appName": "hambaSafe"
